@@ -2,27 +2,36 @@
 # 	- package the 'backfire' kernel module properly
 
 Summary:	Programs that test various rt-linux features
+Summary(pl.UTF-8):	Programy testujące różne właściwości rt-linuksa
 Name:		rt-tests
 Version:	1.0
 Release:	1
 License:	GPL v2
-Group:		Applications
+Group:		Applications/System
 Source0:	https://www.kernel.org/pub/linux/utils/rt-tests/%{name}-%{version}.tar.xz
 # Source0-md5:	3818d2d0a3069291864bf85fde40883b
 URL:		https://rt.wiki.kernel.org/index.php/Cyclictest
+%ifarch %{ix86} %{x8664} x32 ia64 mipx ppc
+BuildRequires:	numactl-devel
+%endif
+BuildRequires:	tar >= 1:1.22
+BuildRequires:	xz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
 
 %description
 Programs that test various rt-linux features.
 
+%description -l pl.UTF-8
+Programy testujące różne właściwości rt-linuksa.
+
 %prep
 %setup -q
 
 %build
+CFLAGS="%{rpmcflags}" \
 %{__make} \
 	prefix="%{_prefix}" \
 	CC="%{__cc}" \
-	CFLAGS="%{rpmcflags}" \
 	LDFLAGS="%{rpmldflags}"
 
 %install
