@@ -1,0 +1,45 @@
+From 82f973442d7a7fe4b08b86aeccd11ac33ecf01d1 Mon Sep 17 00:00:00 2001
+From: Gerald Van Baren <gvb@unssw.com>
+Date: Tue, 25 Oct 2011 22:17:17 -0400
+Subject: [PATCH] Fix deprecated/removed spinlock declaration
+
+Signed-off-by: Gerald Van Baren <gvb@unssw.com>
+---
+ backfire.c |    3 +--
+ 1 files changed, 1 insertions(+), 2 deletions(-)
+
+diff --git a/backfire.c b/backfire.c
+index aaf9c4a..0e9a0df 100644
+--- a/src/backfire/backfire.c
++++ b/src/backfire/backfire.c
+@@ -24,7 +24,6 @@
+ #include <linux/sched.h>
+ #include <linux/cpumask.h>
+ #include <linux/time.h>
+-#include <linux/smp_lock.h>
+ #include <linux/types.h>
+ #include <linux/errno.h>
+ #include <linux/miscdevice.h>
+@@ -36,7 +35,7 @@
+ 
+ #define BACKFIRE_MINOR MISC_DYNAMIC_MINOR
+ 
+-static spinlock_t backfire_state_lock = SPIN_LOCK_UNLOCKED;
++static DEFINE_SPINLOCK(backfire_state_lock);
+ static int backfire_open_cnt; /* #times opened */
+ static int backfire_open_mode; /* special open modes */
+ static struct timeval sendtime; /* when the most recent signal was sent */
+-- 
+1.7.5.4
+
+Also <asm/system.h> is gone for most architectures since v3.4-rc1~54^2.
+--- rt-tests-1.0/src/backfire/backfire.c.orig	2017-03-29 18:54:44.833362351 +0200
++++ rt-tests-1.0/src/backfire/backfire.c	2017-03-29 18:56:06.890028082 +0200
+@@ -31,7 +31,6 @@
+ #include <linux/spinlock.h>
+ 
+ #include <asm/uaccess.h>
+-#include <asm/system.h>
+ 
+ #define BACKFIRE_MINOR MISC_DYNAMIC_MINOR
+ 
