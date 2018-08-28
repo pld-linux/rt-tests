@@ -17,13 +17,13 @@ Summary:	Programs that test various rt-linux features
 Summary(pl.UTF-8):	Programy testujące różne właściwości rt-linuksa
 %define	pname	rt-tests
 Name:		%{pname}%{?_pld_builder:%{?with_kernel:-kernel}}%{_alt_kernel}
-Version:	1.0
+Version:	1.3
 %define	rel	1
 Release:	%{rel}%{?_pld_builder:%{?with_kernel:@%{_kernel_ver_str}}}
 License:	GPL v2
 Group:		Applications/System
 Source0:	https://www.kernel.org/pub/linux/utils/rt-tests/%{pname}-%{version}.tar.xz
-# Source0-md5:	3818d2d0a3069291864bf85fde40883b
+# Source0-md5:	3da57e3fc2c8fafe9a6d3d440386cc8b
 # https://bugs.launchpad.net/ubuntu/+source/rt-tests/+bug/881771/+attachment/2572753/+files/0001-Fix-deprecated-removed-spinlock-declaration.patch
 # + http://www.spinics.net/lists/linux-rt-users/msg08966.html
 Patch0:		%{pname}-backfire.patch
@@ -123,13 +123,16 @@ rm -rf $RPM_BUILD_ROOT
 %files
 %defattr(644,root,root,755)
 %doc README.markdown MAINTAINERS
+%attr(755,root,root) %{_bindir}/cyclicdeadline
 %attr(755,root,root) %{_bindir}/cyclictest
+%attr(755,root,root) %{_bindir}/deadline_test
 %attr(755,root,root) %{_bindir}/hackbench
 %attr(755,root,root) %{_bindir}/hwlatdetect
 %attr(755,root,root) %{_bindir}/pi_stress
 %attr(755,root,root) %{_bindir}/pip_stress
 %attr(755,root,root) %{_bindir}/pmqtest
 %attr(755,root,root) %{_bindir}/ptsematest
+%attr(755,root,root) %{_bindir}/queuelat
 %attr(755,root,root) %{_bindir}/rt-migrate-test
 %attr(755,root,root) %{_bindir}/sendme
 %attr(755,root,root) %{_bindir}/signaltest
@@ -142,6 +145,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/pi_stress.8*
 %{_mandir}/man8/pmqtest.8*
 %{_mandir}/man8/ptsematest.8*
+%{_mandir}/man8/rt-migrate-test.8*
 %{_mandir}/man8/sendme.8*
 %{_mandir}/man8/signaltest.8*
 %{_mandir}/man8/sigwaittest.8*
