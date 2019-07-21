@@ -17,13 +17,13 @@ Summary:	Programs that test various rt-linux features
 Summary(pl.UTF-8):	Programy testujące różne właściwości rt-linuksa
 %define	pname	rt-tests
 Name:		%{pname}%{?_pld_builder:%{?with_kernel:-kernel}}%{_alt_kernel}
-Version:	1.3
+Version:	1.4
 %define	rel	1
 Release:	%{rel}%{?_pld_builder:%{?with_kernel:@%{_kernel_ver_str}}}
 License:	GPL v2
 Group:		Applications/System
 Source0:	https://www.kernel.org/pub/linux/utils/rt-tests/%{pname}-%{version}.tar.xz
-# Source0-md5:	3da57e3fc2c8fafe9a6d3d440386cc8b
+# Source0-md5:	e056b5cd0e8f327bf1c9ecd3517f6815
 # https://bugs.launchpad.net/ubuntu/+source/rt-tests/+bug/881771/+attachment/2572753/+files/0001-Fix-deprecated-removed-spinlock-declaration.patch
 # + http://www.spinics.net/lists/linux-rt-users/msg08966.html
 Patch0:		%{pname}-backfire.patch
@@ -126,6 +126,8 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/cyclicdeadline
 %attr(755,root,root) %{_bindir}/cyclictest
 %attr(755,root,root) %{_bindir}/deadline_test
+%attr(755,root,root) %{_bindir}/determine_maximum_mpps.sh
+%attr(755,root,root) %{_bindir}/get_cpuinfo_mhz.sh
 %attr(755,root,root) %{_bindir}/hackbench
 %attr(755,root,root) %{_bindir}/hwlatdetect
 %attr(755,root,root) %{_bindir}/pi_stress
@@ -134,21 +136,23 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/ptsematest
 %attr(755,root,root) %{_bindir}/queuelat
 %attr(755,root,root) %{_bindir}/rt-migrate-test
-%attr(755,root,root) %{_bindir}/sendme
 %attr(755,root,root) %{_bindir}/signaltest
 %attr(755,root,root) %{_bindir}/sigwaittest
+%attr(755,root,root) %{_bindir}/ssdd
 %attr(755,root,root) %{_bindir}/svsematest
-%{_mandir}/man4/backfire.4*
 %{_mandir}/man8/cyclictest.8*
+%{_mandir}/man8/deadline_test.8*
 %{_mandir}/man8/hackbench.8*
 %{_mandir}/man8/hwlatdetect.8*
 %{_mandir}/man8/pi_stress.8*
+%{_mandir}/man8/pip_stress.8*
 %{_mandir}/man8/pmqtest.8*
 %{_mandir}/man8/ptsematest.8*
+%{_mandir}/man8/queuelat.8*
 %{_mandir}/man8/rt-migrate-test.8*
-%{_mandir}/man8/sendme.8*
 %{_mandir}/man8/signaltest.8*
 %{_mandir}/man8/sigwaittest.8*
+%{_mandir}/man8/ssdd.8*
 %{_mandir}/man8/svsematest.8*
 %{py_sitescriptdir}/hwlatdetect.py*
 %{_prefix}/src/%{name}-%{version}
