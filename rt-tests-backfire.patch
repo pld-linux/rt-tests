@@ -33,13 +33,14 @@ index aaf9c4a..0e9a0df 100644
 1.7.5.4
 
 Also <asm/system.h> is gone for most architectures since v3.4-rc1~54^2.
---- rt-tests-1.0/src/backfire/backfire.c.orig	2017-03-29 18:54:44.833362351 +0200
-+++ rt-tests-1.0/src/backfire/backfire.c	2017-03-29 18:56:06.890028082 +0200
-@@ -31,7 +31,6 @@
+--- rt-tests-1.6/src/backfire/backfire.c.orig	2020-02-09 10:27:54.181066040 +0100
++++ rt-tests-1.6/src/backfire/backfire.c	2020-02-09 10:29:12.863973111 +0100
+@@ -16,8 +16,6 @@
  #include <linux/spinlock.h>
+ #include <linux/uaccess.h>
  
- #include <asm/uaccess.h>
 -#include <asm/system.h>
- 
+-
  #define BACKFIRE_MINOR MISC_DYNAMIC_MINOR
  
+ static DEFINE_SPINLOCK(backfire_state_lock);

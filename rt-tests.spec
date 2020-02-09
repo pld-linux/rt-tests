@@ -17,19 +17,19 @@ Summary:	Programs that test various rt-linux features
 Summary(pl.UTF-8):	Programy testujące różne właściwości rt-linuksa
 %define	pname	rt-tests
 Name:		%{pname}%{?_pld_builder:%{?with_kernel:-kernel}}%{_alt_kernel}
-Version:	1.5
+Version:	1.6
 %define	rel	1
 Release:	%{rel}%{?_pld_builder:%{?with_kernel:@%{_kernel_ver_str}}}
 License:	GPL v2
 Group:		Applications/System
 Source0:	https://www.kernel.org/pub/linux/utils/rt-tests/%{pname}-%{version}.tar.xz
-# Source0-md5:	306ed2ef9473a5779b846d08168b6e71
+# Source0-md5:	8f113923fa265ef314e3d5642addb202
 # https://bugs.launchpad.net/ubuntu/+source/rt-tests/+bug/881771/+attachment/2572753/+files/0001-Fix-deprecated-removed-spinlock-declaration.patch
 # + http://www.spinics.net/lists/linux-rt-users/msg08966.html
 Patch0:		%{pname}-backfire.patch
 URL:		https://rt.wiki.kernel.org/index.php/Cyclictest
 %{?with_kernel:%{expand:%buildrequires_kernel kernel%%{_alt_kernel}-module-build >= 3:2.6.20.2}}
-%ifarch %{ix86} %{x8664} x32 ia64 mipx ppc
+%ifarch %{ix86} %{x8664} x32 ia64 mips ppc
 BuildRequires:	numactl-devel
 %endif
 BuildRequires:	python-modules
@@ -106,8 +106,7 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	prefix="%{_prefix}" \
-	PYLIB="%{py_sitescriptdir}" \
-	srcdir="%{_prefix}/src/%{name}-%{version}"
+	PYLIB="%{py_sitescriptdir}"
 
 %py_comp $RPM_BUILD_ROOT%{py_sitescriptdir}
 %py_ocomp $RPM_BUILD_ROOT%{py_sitescriptdir}
@@ -155,4 +154,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/ssdd.8*
 %{_mandir}/man8/svsematest.8*
 %{py_sitescriptdir}/hwlatdetect.py*
-%{_prefix}/src/%{name}-%{version}
