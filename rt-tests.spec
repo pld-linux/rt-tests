@@ -17,13 +17,13 @@ Summary:	Programs that test various rt-linux features
 Summary(pl.UTF-8):	Programy testujące różne właściwości rt-linuksa
 %define	pname	rt-tests
 Name:		%{pname}%{?_pld_builder:%{?with_kernel:-kernel}}%{_alt_kernel}
-Version:	1.6
+Version:	1.8
 %define	rel	1
 Release:	%{rel}%{?_pld_builder:%{?with_kernel:@%{_kernel_ver_str}}}
 License:	GPL v2
 Group:		Applications/System
 Source0:	https://www.kernel.org/pub/linux/utils/rt-tests/%{pname}-%{version}.tar.xz
-# Source0-md5:	8f113923fa265ef314e3d5642addb202
+# Source0-md5:	70397a165788ce377d2915d8358c2f23
 # https://bugs.launchpad.net/ubuntu/+source/rt-tests/+bug/881771/+attachment/2572753/+files/0001-Fix-deprecated-removed-spinlock-declaration.patch
 # + http://www.spinics.net/lists/linux-rt-users/msg08966.html
 Patch0:		%{pname}-backfire.patch
@@ -34,6 +34,7 @@ BuildRequires:	numactl-devel
 %endif
 BuildRequires:	python-modules
 BuildRequires:	rpmbuild(macros) >= 1.701
+BuildRequires:	sed >= 4.0
 BuildRequires:	tar >= 1:1.22
 BuildRequires:	xz
 BuildRoot:	%{tmpdir}/%{name}-%{version}-root-%(id -u -n)
@@ -88,6 +89,8 @@ dostarczania sygnałów.\
 %setup -q -n %{pname}-%{version}
 %patch0 -p1
 
+%{__sed} -i -e '1s,/usr/bin/env python3,%{__python3},' src/cyclictest/get_cyclictest_snapshot.py
+
 %build
 %if %{with userspace}
 CFLAGS="%{rpmcflags}" \
@@ -127,6 +130,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/deadline_test
 %attr(755,root,root) %{_bindir}/determine_maximum_mpps.sh
 %attr(755,root,root) %{_bindir}/get_cpuinfo_mhz.sh
+%attr(755,root,root) %{_bindir}/get_cyclictest_snapshot
 %attr(755,root,root) %{_bindir}/hackbench
 %attr(755,root,root) %{_bindir}/hwlatdetect
 %attr(755,root,root) %{_bindir}/pi_stress
@@ -139,6 +143,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/sigwaittest
 %attr(755,root,root) %{_bindir}/ssdd
 %attr(755,root,root) %{_bindir}/svsematest
+%{_mandir}/man8/cyclicdeadline.8*
 %{_mandir}/man8/cyclictest.8*
 %{_mandir}/man8/deadline_test.8*
 %{_mandir}/man8/hackbench.8*
@@ -154,3 +159,4 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/ssdd.8*
 %{_mandir}/man8/svsematest.8*
 %{py_sitescriptdir}/hwlatdetect.py*
+%{py_sitescriptdir}/get_cyclictest_snapshot.py*
