@@ -17,13 +17,13 @@ Summary:	Programs that test various rt-linux features
 Summary(pl.UTF-8):	Programy testujące różne właściwości rt-linuksa
 %define	pname	rt-tests
 Name:		%{pname}%{?_pld_builder:%{?with_kernel:-kernel}}%{_alt_kernel}
-Version:	1.8
+Version:	1.9
 %define	rel	1
 Release:	%{rel}%{?_pld_builder:%{?with_kernel:@%{_kernel_ver_str}}}
 License:	GPL v2
 Group:		Applications/System
 Source0:	https://www.kernel.org/pub/linux/utils/rt-tests/%{pname}-%{version}.tar.xz
-# Source0-md5:	70397a165788ce377d2915d8358c2f23
+# Source0-md5:	d728a21dcbc34ee789ba71c1e4c621b7
 # https://bugs.launchpad.net/ubuntu/+source/rt-tests/+bug/881771/+attachment/2572753/+files/0001-Fix-deprecated-removed-spinlock-declaration.patch
 # + http://www.spinics.net/lists/linux-rt-users/msg08966.html
 Patch0:		%{pname}-backfire.patch
@@ -32,7 +32,7 @@ URL:		https://rt.wiki.kernel.org/index.php/Cyclictest
 %ifarch %{ix86} %{x8664} x32 ia64 mips ppc
 BuildRequires:	numactl-devel
 %endif
-BuildRequires:	python-modules
+BuildRequires:	python3-modules >= 1:3
 BuildRequires:	rpmbuild(macros) >= 1.701
 BuildRequires:	sed >= 4.0
 BuildRequires:	tar >= 1:1.22
@@ -109,10 +109,10 @@ rm -rf $RPM_BUILD_ROOT
 %{__make} install \
 	DESTDIR=$RPM_BUILD_ROOT \
 	prefix="%{_prefix}" \
-	PYLIB="%{py_sitescriptdir}"
+	PYLIB="%{py3_sitescriptdir}"
 
-%py_comp $RPM_BUILD_ROOT%{py_sitescriptdir}
-%py_ocomp $RPM_BUILD_ROOT%{py_sitescriptdir}
+%py3_comp $RPM_BUILD_ROOT%{py3_sitescriptdir}
+%py3_ocomp $RPM_BUILD_ROOT%{py3_sitescriptdir}
 %endif
 
 %if %{with kernel}
@@ -133,6 +133,7 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/get_cyclictest_snapshot
 %attr(755,root,root) %{_bindir}/hackbench
 %attr(755,root,root) %{_bindir}/hwlatdetect
+%attr(755,root,root) %{_bindir}/oslat
 %attr(755,root,root) %{_bindir}/pi_stress
 %attr(755,root,root) %{_bindir}/pip_stress
 %attr(755,root,root) %{_bindir}/pmqtest
@@ -143,11 +144,17 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/sigwaittest
 %attr(755,root,root) %{_bindir}/ssdd
 %attr(755,root,root) %{_bindir}/svsematest
+%{py3_sitescriptdir}/hwlatdetect.py
+%{py3_sitescriptdir}/get_cyclictest_snapshot.py
+%{py3_sitescriptdir}/__pycache__/hwlatdetect.cpython-*.py[co]
+%{py3_sitescriptdir}/__pycache__/get_cyclictest_snapshot.cpython-*.py[co]
 %{_mandir}/man8/cyclicdeadline.8*
 %{_mandir}/man8/cyclictest.8*
 %{_mandir}/man8/deadline_test.8*
+%{_mandir}/man8/get_cyclictest_snapshot.8*
 %{_mandir}/man8/hackbench.8*
 %{_mandir}/man8/hwlatdetect.8*
+%{_mandir}/man8/oslat.8*
 %{_mandir}/man8/pi_stress.8*
 %{_mandir}/man8/pip_stress.8*
 %{_mandir}/man8/pmqtest.8*
@@ -158,5 +165,3 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/sigwaittest.8*
 %{_mandir}/man8/ssdd.8*
 %{_mandir}/man8/svsematest.8*
-%{py_sitescriptdir}/hwlatdetect.py*
-%{py_sitescriptdir}/get_cyclictest_snapshot.py*
