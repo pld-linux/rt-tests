@@ -17,13 +17,13 @@ Summary:	Programs that test various rt-linux features
 Summary(pl.UTF-8):	Programy testujące różne właściwości rt-linuksa
 %define	pname	rt-tests
 Name:		%{pname}%{?_pld_builder:%{?with_kernel:-kernel}}%{_alt_kernel}
-Version:	1.9
+Version:	1.10
 %define	rel	1
 Release:	%{rel}%{?_pld_builder:%{?with_kernel:@%{_kernel_ver_str}}}
 License:	GPL v2
 Group:		Applications/System
 Source0:	https://www.kernel.org/pub/linux/utils/rt-tests/%{pname}-%{version}.tar.xz
-# Source0-md5:	d728a21dcbc34ee789ba71c1e4c621b7
+# Source0-md5:	4da4d205fb46758251d026e2279f51c7
 # https://bugs.launchpad.net/ubuntu/+source/rt-tests/+bug/881771/+attachment/2572753/+files/0001-Fix-deprecated-removed-spinlock-declaration.patch
 # + http://www.spinics.net/lists/linux-rt-users/msg08966.html
 Patch0:		%{pname}-backfire.patch
@@ -129,7 +129,6 @@ rm -rf $RPM_BUILD_ROOT
 %attr(755,root,root) %{_bindir}/cyclictest
 %attr(755,root,root) %{_bindir}/deadline_test
 %attr(755,root,root) %{_bindir}/determine_maximum_mpps.sh
-%attr(755,root,root) %{_bindir}/get_cpuinfo_mhz.sh
 %attr(755,root,root) %{_bindir}/get_cyclictest_snapshot
 %attr(755,root,root) %{_bindir}/hackbench
 %attr(755,root,root) %{_bindir}/hwlatdetect
@@ -151,6 +150,7 @@ rm -rf $RPM_BUILD_ROOT
 %{_mandir}/man8/cyclicdeadline.8*
 %{_mandir}/man8/cyclictest.8*
 %{_mandir}/man8/deadline_test.8*
+%{_mandir}/man8/determine_maximum_mpps.8*
 %{_mandir}/man8/get_cyclictest_snapshot.8*
 %{_mandir}/man8/hackbench.8*
 %{_mandir}/man8/hwlatdetect.8*
