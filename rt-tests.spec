@@ -17,13 +17,13 @@ Summary:	Programs that test various rt-linux features
 Summary(pl.UTF-8):	Programy testujące różne właściwości rt-linuksa
 %define	pname	rt-tests
 Name:		%{pname}%{?_pld_builder:%{?with_kernel:-kernel}}%{_alt_kernel}
-Version:	2.2
+Version:	2.3
 %define	rel	1
 Release:	%{rel}%{?_pld_builder:%{?with_kernel:@%{_kernel_ver_str}}}
 License:	GPL v2
 Group:		Applications/System
 Source0:	https://www.kernel.org/pub/linux/utils/rt-tests/%{pname}-%{version}.tar.xz
-# Source0-md5:	294b25a370cc5427862f2f5d5fa6e01e
+# Source0-md5:	28e8b92be0579a2c6e8c7c2ff1bb2947
 # https://bugs.launchpad.net/ubuntu/+source/rt-tests/+bug/881771/+attachment/2572753/+files/0001-Fix-deprecated-removed-spinlock-declaration.patch
 # + http://www.spinics.net/lists/linux-rt-users/msg08966.html
 Patch0:		%{pname}-backfire.patch
