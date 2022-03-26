@@ -1,6 +1,6 @@
 #
 # Conditional build:
-%bcond_without	kernel		# backfire kernel module
+%bcond_with	kernel		# backfire kernel module
 %bcond_without	userspace	# userspace programs
 %bcond_with	verbose		# verbose kernel module build (V=1)
 
