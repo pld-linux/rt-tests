@@ -17,13 +17,13 @@ Summary:	Programs that test various rt-linux features
 Summary(pl.UTF-8):	Programy testujące różne właściwości rt-linuksa
 %define	pname	rt-tests
 Name:		%{pname}%{?_pld_builder:%{?with_kernel:-kernel}}%{_alt_kernel}
-Version:	2.7
+Version:	2.8
 %define	rel	1
 Release:	%{rel}%{?_pld_builder:%{?with_kernel:@%{_kernel_ver_str}}}
 License:	GPL v2
 Group:		Applications/System
 Source0:	https://www.kernel.org/pub/linux/utils/rt-tests/%{pname}-%{version}.tar.xz
-# Source0-md5:	0be42e2c54b64984ef84f3c42fb39539
+# Source0-md5:	470d1c23ec4ca81a2ab63f3c6caa7a1e
 # https://bugs.launchpad.net/ubuntu/+source/rt-tests/+bug/881771/+attachment/2572753/+files/0001-Fix-deprecated-removed-spinlock-declaration.patch
 # + http://www.spinics.net/lists/linux-rt-users/msg08966.html
 Patch0:		%{pname}-backfire.patch
@@ -87,7 +87,7 @@ dostarczania sygnałów.\
 
 %prep
 %setup -q -n %{pname}-%{version}
-%patch0 -p1
+%patch -P0 -p1
 
 %{__sed} -i -e '1s,/usr/bin/env python3,%{__python3},' src/cyclictest/get_cyclictest_snapshot.py
 
