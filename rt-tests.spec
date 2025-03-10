@@ -18,7 +18,7 @@ Summary(pl.UTF-8):	Programy testujące różne właściwości rt-linuksa
 %define	pname	rt-tests
 Name:		%{pname}%{?_pld_builder:%{?with_kernel:-kernel}}%{_alt_kernel}
 Version:	2.8
-%define	rel	1
+%define	rel	2
 Release:	%{rel}%{?_pld_builder:%{?with_kernel:@%{_kernel_ver_str}}}
 License:	GPL v2
 Group:		Applications/System
