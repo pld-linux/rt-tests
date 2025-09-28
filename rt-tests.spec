@@ -17,18 +17,16 @@ Summary:	Programs that test various rt-linux features
 Summary(pl.UTF-8):	Programy testujące różne właściwości rt-linuksa
 %define	pname	rt-tests
 Name:		%{pname}%{?_pld_builder:%{?with_kernel:-kernel}}%{_alt_kernel}
-Version:	2.8
-%define	rel	4
+Version:	2.9
+%define	rel	1
 Release:	%{rel}%{?_pld_builder:%{?with_kernel:@%{_kernel_ver_str}}}
 License:	GPL v2
 Group:		Applications/System
 Source0:	https://www.kernel.org/pub/linux/utils/rt-tests/%{pname}-%{version}.tar.xz
-# Source0-md5:	470d1c23ec4ca81a2ab63f3c6caa7a1e
+# Source0-md5:	b2e16d8e57533370600a149e6b99fd6b
 # https://bugs.launchpad.net/ubuntu/+source/rt-tests/+bug/881771/+attachment/2572753/+files/0001-Fix-deprecated-removed-spinlock-declaration.patch
 # + http://www.spinics.net/lists/linux-rt-users/msg08966.html
 Patch0:		%{pname}-backfire.patch
-# https://git.kernel.org/pub/scm/utils/rt-tests/rt-tests.git/patch/?id=d3a23a0cc76789c3083df3bad78982cd49bc4c5e
-Patch1:		%{pname}-glibc2.41.patch
 URL:		https://rt.wiki.kernel.org/index.php/Cyclictest
 %{?with_kernel:%{expand:%buildrequires_kernel kernel%%{_alt_kernel}-module-build >= 3:2.6.20.2}}
 %ifarch %{ix86} %{x8664} x32 ia64 mips ppc
@@ -90,7 +88,6 @@ dostarczania sygnałów.\
 %prep
 %setup -q -n %{pname}-%{version}
 %patch -P0 -p1
-%patch -P1 -p1
 
 %{__sed} -i -e '1s,/usr/bin/env python3,%{__python3},' src/cyclictest/get_cyclictest_snapshot.py
 
